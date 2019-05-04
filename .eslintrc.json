@@ -1,7 +1,38 @@
 {
-  "root": true,
-  "extends": ["fullstack", "prettier", "prettier/react"],
-  "rules": {
-    "semi": 0
-  }
+	"extends": ["fullstack", "prettier", "prettier/react"],
+	"parser": "babel-eslint",
+	"rules": {
+		"no-else-return": 1,
+		"yoda": 1,
+		"brace-style": 1,
+		"indent": [
+			"error",
+			"tab", {
+				"SwitchCase": 1,
+				"VariableDeclarator": {
+					"var": 2,
+					"let": 2,
+					"const": 3
+				}
+			}
+		],
+		"operator-assignment": 1,
+		"quotes": [1, "double",
+			{
+				"avoidEscape": true,
+				"allowTemplateLiterals": true
+			}
+		],
+		"semi": [1, "always"],
+		"sort-vars": 1,
+		"space-before-blocks": 1,
+		"arrow-body-style": [1, "as-needed"],
+		"arrow-parens": [1, "as-needed"],
+		"no-var": 1,
+		"object-shorthand": 1,
+		"prefer-arrow-callback": 1,
+		"prefer-const": 2,
+		"prefer-spread": 1,
+		"prefer-template": 1
+	}
 }
