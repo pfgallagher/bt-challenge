@@ -17,7 +17,6 @@ const createApp = () => {
 
 	app.use(compression());
 
-	app.use("/auth", require("./auth"));
 	app.use("/api", require("./api"));
 
 	app.use((req, res, next) => {
