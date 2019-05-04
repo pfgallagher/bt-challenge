@@ -1,3 +1,5 @@
+const giphyAPIKey = process.env.GIPHY_API_KEY;
+
 const router = require("express").Router();
 module.exports = router;
 
