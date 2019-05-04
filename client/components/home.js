@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
+// import { connect } from "react-redux";
+class Home extends Component {
+	render() {
+		return <div />;
+	}
+}
 
-export const Home = () => (
-	<div>
-		<h3>Welcome</h3>
-	</div>
-);
-
-export default Home;
+export default // connect(mapStateToProps, mapDispatchToProps)
+Home;
