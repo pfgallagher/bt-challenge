@@ -1,54 +1,11 @@
 import React, { Component } from "react";
 import { Button, Dropdown, Grid, Input } from "semantic-ui-react";
+import { languages, ratings } from "./settingsData";
+import { connect } from "react-redux";
+import { setLanguage, setRating } from "./../store";
 class HomeNav extends Component {
 	render() {
-		// TODO: Modularize these.
-		const language = [
-			{ key: "English", text: "English", value: "en" },
-			{ key: "Spanish", text: "Spanish", value: "es" },
-			{ key: "Portuguese", text: "Portuguese", value: "pt" },
-			{ key: "Indonesian", text: "Indonesian", value: "id" },
-			{ key: "French", text: "French", value: "fr" },
-			{ key: "Arabic", text: "Arabic", value: "ar" },
-			{ key: "Turkish", text: "Turkish", value: "tr" },
-			{ key: "Thai", text: "Thai", value: "th" },
-			{ key: "Vietnamese", text: "Vietnamese", value: "vi" },
-			{ key: "German", text: "German", value: "de" },
-			{ key: "Italian", text: "Italian", value: "it" },
-			{ key: "Japanese", text: "Japanese", value: "ja" },
-			{ key: "Chinese Simplified", text: "Chinese Simplified", value: "zh-CN" },
-			{
-				key: "Chinese Traditional",
-				text: "Chinese Traditional",
-				value: "zh-TW",
-			},
-			{ key: "Russian", text: "Russian", value: "ru" },
-			{ key: "Korean", text: "Korean", value: "ko" },
-			{ key: "Polish", text: "Polish", value: "pl" },
-			{ key: "Dutch", text: "Dutch", value: "nl" },
-			{ key: "Romanian", text: "Romanian", value: "ro" },
-			{ key: "Hungarian", text: "Hungarian", value: "hu" },
-			{ key: "Swedish", text: "Swedish", value: "sv" },
-			{ key: "Czech", text: "Czech", value: "cs" },
-			{ key: "Hindi", text: "Hindi", value: "hi" },
-			{ key: "Bengali", text: "Bengali", value: "bn" },
-			{ key: "Danish", text: "Danish", value: "da" },
-			{ key: "Farsi", text: "Farsi", value: "fa" },
-			{ key: "Filipino", text: "Filipino", value: "tl" },
-			{ key: "Finnish", text: "Finnish", value: "fi" },
-			{ key: "Hebrew", text: "Hebrew", value: "iw" },
-			{ key: "Malay", text: "Malay", value: "ms" },
-			{ key: "Norwegian", text: "Norwegian", value: "no" },
-			{ key: "Ukranian", text: "Ukranian", value: "uk" },
-		];
-		const rating = [
-			{ key: "Y", text: "Y", value: "y" },
-			{ key: "G", text: "G", value: "g" },
-			{ key: "PG", text: "PG", value: "pg" },
-			{ key: "PG-13", text: "PG-13", value: "pg-13" },
-			{ key: "R", text: "R", value: "r" },
-		];
-		//
+		const { language, rating, setLanguage, setRating } = this.props;
 		return (
 			<Grid.Row>
 				<Grid.Column width="1" />
@@ -78,9 +35,13 @@ class HomeNav extends Component {
 						floating
 						labeled
 						icon="world"
-						options={language}
+						defaultValue={language}
+						onChange={(event, data) => {
+							setLanguage(data.value);
+						}}
+						options={languages}
 						search
-						text="Search Language"
+						header="Search Language"
 					/>
 				</Grid.Column>
 				<Grid.Column width="2" verticalAlign="middle">
@@ -89,9 +50,13 @@ class HomeNav extends Component {
 						className="icon"
 						floating
 						labeled
-						options={rating}
+						defaultValue={rating}
+						options={ratings}
+						onChange={(event, data) => {
+							setRating(data.value);
+						}}
 						search
-						text="Content Rating"
+						header="Content Rating"
 					/>
 				</Grid.Column>
 			</Grid.Row>
@@ -99,4 +64,18 @@ class HomeNav extends Component {
 	}
 }
 
-export default HomeNav;
+const mapStateToProps = state => ({
+	language: state.settings.language,
+	rating: state.settings.rating,
+});
+
+const mapDispatchToProps = dispatch => ({
+	setLanguage: language => {
+		dispatch(setLanguage(language));
+	},
+	setRating: rating => {
+		dispatch(setRating(rating));
+	},
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeNav);
