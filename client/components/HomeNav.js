@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Button, Dropdown, Grid, Input } from "semantic-ui-react";
+import { Button, Grid, Input } from "semantic-ui-react";
 import { languages, ratings } from "./settingsData";
 import { connect } from "react-redux";
 import { setLanguage, setRating } from "./../store";
+import HomeNavDropdown from "./HomeNavDropdown";
 class HomeNav extends Component {
 	render() {
 		const { language, rating, setLanguage, setRating } = this.props;
@@ -29,33 +30,24 @@ class HomeNav extends Component {
 					</Input>
 				</Grid.Column>
 				<Grid.Column width="2" verticalAlign="middle">
-					<Dropdown
-						button
-						className="icon"
-						floating
-						labeled
+					<HomeNavDropdown
 						icon="world"
 						defaultValue={language}
 						onChange={(event, data) => {
 							setLanguage(data.value);
 						}}
 						options={languages}
-						search
 						header="Search Language"
 					/>
 				</Grid.Column>
 				<Grid.Column width="2" verticalAlign="middle">
-					<Dropdown
-						button
-						className="icon"
-						floating
-						labeled
+					<HomeNavDropdown
+						icon="dropdown"
 						defaultValue={rating}
-						options={ratings}
 						onChange={(event, data) => {
 							setRating(data.value);
 						}}
-						search
+						options={ratings}
 						header="Content Rating"
 					/>
 				</Grid.Column>
