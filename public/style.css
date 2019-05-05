@@ -19,3 +19,11 @@ form div {
 	margin: 1em;
 	display: inline-block;
 }
+
+.bgColorOverride {
+	background-color: #004e85 !important;
+}
+
+body {
+	background-color: #bfcbd9 !important;
+}
