@@ -45,7 +45,7 @@ const buildSearchString = (
 ) =>
 	`/api/search/${searchType}?api_key=APIKEY${
 		searchQuery ? `&q=${searchQuery}` : ""
-	}${notRandom ? `$limit=${limit}&offset=${offset}` : ""}&rating=${rating}${
+	}${notRandom ? `&limit=${limit}&offset=${offset}` : ""}&rating=${rating}${
 		searchType === "search" ? `&lang=${language}` : ""
 	}`;
 
@@ -69,6 +69,9 @@ export const initialSearch = (type, query) => async (dispatch, getState) => {
 			language,
 		);
 		console.log(searchString);
+		const { data: gifs } = await axios.get(searchString);
+		const results = Array.isArray(gifs.data) ? gifs.data : [gifs.data];
+		dispatch(addResults(results));
 		// Axios request goes here
 		// Add result dispatch goes here
 		if (notRandom) dispatch(updateOffset(48));
@@ -94,6 +97,8 @@ export const infiniteScroll = () => async (dispatch, getState) => {
 				language,
 			);
 			console.log(searchString);
+			const { data: gifs } = await axios.get(searchString);
+			dispatch(addResults(gifs.data));
 			// Axios request goes here
 			// Add result dispatch goes here
 			dispatch(updateOffset(48));
@@ -105,7 +110,7 @@ export const infiniteScroll = () => async (dispatch, getState) => {
 
 // Reducer
 const initialState = {
-	results: [...dummyData.data],
+	results: [],
 	searchType: "",
 	offset: 0,
 	searchQuery: "",

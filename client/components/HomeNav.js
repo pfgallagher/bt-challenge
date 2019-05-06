@@ -7,19 +7,27 @@ import {
 	setRating,
 	initialSearch,
 	updateSearchType,
+	updateSearchQuery,
 } from "./../store";
 import HomeNavDropdown from "./HomeNavDropdown";
 class HomeNav extends Component {
 	state = {
 		input: "",
 	};
+
+	clearInput = () => {
+		this.setState({ input: "" });
+	};
+
 	render() {
 		const {
 			language,
 			rating,
 			setLanguage,
 			setRating,
+			searchQuery,
 			updateSearchType,
+			updateSearchQuery,
 			initialSearch,
 		} = this.props;
 		return (
@@ -54,15 +62,15 @@ class HomeNav extends Component {
 						placeholder="Search Giphy"
 						action
 						onChange={event => {
-							this.setState({ input: event.target.value });
+							updateSearchQuery(event.target.value);
 						}}
 					>
-						<input />
+						<input value={searchQuery} />
 						<Button
 							size="massive"
 							type="submit"
 							onClick={() => {
-								initialSearch("search", this.state.input);
+								initialSearch("search", searchQuery);
 							}}
 						>
 							Search
@@ -99,6 +107,7 @@ class HomeNav extends Component {
 const mapStateToProps = state => ({
 	language: state.settings.language,
 	rating: state.settings.rating,
+	searchQuery: state.search.searchQuery,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -111,8 +120,11 @@ const mapDispatchToProps = dispatch => ({
 	updateSearchType: searchType => {
 		dispatch(updateSearchType(searchType));
 	},
-	initialSearch: searchType => {
-		dispatch(initialSearch(searchType));
+	initialSearch: (searchType, searchQuery) => {
+		dispatch(initialSearch(searchType, searchQuery));
+	},
+	updateSearchQuery: searchQuery => {
+		dispatch(updateSearchQuery(searchQuery));
 	},
 });
 

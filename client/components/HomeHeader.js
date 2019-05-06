@@ -3,8 +3,10 @@ import { Grid, Header, Image } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { clearResults } from "./../store";
 import { Link } from "react-router-dom";
+import HomeNav from "./HomeNav";
 class HomeHeader extends Component {
 	render() {
+		console.log(HomeNav);
 		const { clearResults } = this.props;
 		return (
 			<Grid.Row>
