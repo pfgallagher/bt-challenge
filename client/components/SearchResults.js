@@ -3,26 +3,30 @@ import { Card, Icon, Image, Visibility } from "semantic-ui-react";
 import { connect } from "react-redux";
 const dummyData = require("./../components/settingsData/dummyData.json");
 import { infiniteScroll } from "./../store";
+import NavButton from "./NavButton";
 
 class SearchResults extends Component {
 	render() {
-		const { infiniteScroll, results } = this.props;
+		const { infiniteScroll, results, loading } = this.props;
 		return (
 			<>
-				<Icon
-					className="scrollToTopColorOverride"
-					name="arrow alternate circle up outline"
-					size="big"
-					link
-					onClick={() =>
-						window.scrollTo({
-							top: 0,
-							left: 0,
-							behavior: "smooth",
-						})
-					}
-					style={{ position: "fixed", top: "95%", left: "95%" }}
-				/>
+				{loading ? (
+					<NavButton
+						name="circle notched"
+						loading={true}
+						link={false}
+						onClick={() => {}}
+					/>
+				) : (
+					<NavButton
+						name="arrow alternate circle up outline"
+						link
+						loading={false}
+						onClick={() =>
+							window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+						}
+					/>
+				)}
 				<Visibility continuous onBottomVisible={() => infiniteScroll()}>
 					<Card.Group centered>
 						{results.map(el => (
@@ -39,6 +43,7 @@ class SearchResults extends Component {
 
 const mapStateToProps = state => ({
 	results: state.search.results,
+	loading: state.search.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
