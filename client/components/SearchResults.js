@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-const dummyData = require("./settingsData/dummyData.json");
-import { Card, Icon, Image } from "semantic-ui-react";
+import { Card, Icon, Image, Visibility } from "semantic-ui-react";
+import { connect } from "react-redux";
+const dummyData = require("./../components/settingsData/dummyData.json");
+import { infiniteScroll } from "./../store";
+
 class SearchResults extends Component {
 	render() {
+		const { infiniteScroll, results } = this.props;
 		return (
 			<>
 				<Icon
@@ -19,21 +23,31 @@ class SearchResults extends Component {
 					}
 					style={{ position: "fixed", top: "95%", left: "95%" }}
 				/>
-				<Card.Group centered>
-					{dummyData.data.map(el => (
-						<Card className="cardColorOverride" key={el.id} link>
-							<Image src={el.images.fixed_height.url} />
-						</Card>
-					))}
-					{dummyData.data.map(el => (
-						<Card className="cardColorOverride" key={el.id} link>
-							<Image src={el.images.fixed_height.url} />
-						</Card>
-					))}
-				</Card.Group>
+				<Visibility
+					continuous
+					onBottomVisible={() => infiniteScroll(dummyData.data)}
+				>
+					<Card.Group centered>
+						{results.map(el => (
+							<Card className="cardColorOverride" key={el.id} link>
+								<Image src={el.images.fixed_height.url} />
+							</Card>
+						))}
+					</Card.Group>
+				</Visibility>
 			</>
 		);
 	}
 }
 
-export default SearchResults;
+const mapStateToProps = state => ({
+	results: state.search.results,
+});
+
+const mapDispatchToProps = dispatch => ({
+	infiniteScroll: additionalResults => {
+		dispatch(infiniteScroll(additionalResults));
+	},
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
