@@ -61,7 +61,7 @@ const buildSearchString = (
 
 export const initialSearch = (type, query) => async (dispatch, getState) => {
 	try {
-		await dispatch(toggleLoadingOn());
+		dispatch(toggleLoadingOn());
 		dispatch(clearResults());
 		dispatch(updateSearchType(type));
 		if (query) dispatch(updateSearchQuery(query));
@@ -83,7 +83,7 @@ export const initialSearch = (type, query) => async (dispatch, getState) => {
 		const { data: gifs } = await axios.get(searchString);
 		const results = Array.isArray(gifs.data) ? gifs.data : [gifs.data];
 		dispatch(addResults(results));
-		if (notRandom) dispatch(updateOffset(48));
+		if (notRandom) dispatch(updateOffset(49));
 		dispatch(toggleLoadingOff());
 	} catch (error) {
 		console.log(error);
@@ -92,7 +92,7 @@ export const initialSearch = (type, query) => async (dispatch, getState) => {
 
 export const infiniteScroll = () => async (dispatch, getState) => {
 	try {
-		await dispatch(toggleLoadingOn());
+		dispatch(toggleLoadingOn());
 		const { search, settings } = getState();
 		const { searchType, offset, searchQuery } = search;
 		const { rating, language } = settings;
@@ -110,7 +110,7 @@ export const infiniteScroll = () => async (dispatch, getState) => {
 			console.log(searchString);
 			const { data: gifs } = await axios.get(searchString);
 			dispatch(addResults(gifs.data));
-			dispatch(updateOffset(48));
+			dispatch(updateOffset(49));
 			dispatch(toggleLoadingOff());
 		}
 	} catch (error) {

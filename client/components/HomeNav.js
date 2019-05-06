@@ -31,15 +31,13 @@ class HomeNav extends Component {
 			initialSearch,
 		} = this.props;
 		return (
-			<Grid.Row>
-				<Grid.Column width="1" />
-				<Grid.Column textAlign="center" width="2" verticalAlign="middle">
+			<Grid.Row centered>
+				<Grid.Column textAlign="center" width="4" verticalAlign="middle">
 					<Button.Group>
 						<Button
 							onClick={() => {
 								initialSearch("trending");
 							}}
-							size="huge"
 							className="icon"
 						>
 							Trending
@@ -48,17 +46,16 @@ class HomeNav extends Component {
 							onClick={() => {
 								initialSearch("random");
 							}}
-							size="huge"
 							className="icon"
 						>
 							Random
 						</Button>
 					</Button.Group>
 				</Grid.Column>
-				<Grid.Column width="1" />
-				<Grid.Column width="8" textAlign="center">
+				<Grid.Column width="8" textAlign="center" verticalAlign="middle">
 					<Input
-						size="massive"
+						size="huge"
+						fluid
 						placeholder="Search Giphy"
 						action
 						onChange={event => {
@@ -67,7 +64,7 @@ class HomeNav extends Component {
 					>
 						<input value={searchQuery} />
 						<Button
-							size="massive"
+							size="huge"
 							type="submit"
 							onClick={() => {
 								initialSearch("search", searchQuery);
@@ -77,7 +74,7 @@ class HomeNav extends Component {
 						</Button>
 					</Input>
 				</Grid.Column>
-				<Grid.Column width="2" verticalAlign="middle">
+				<Grid.Column width="4" verticalAlign="middle" textAlign="center">
 					<HomeNavDropdown
 						icon="world"
 						defaultValue={language}
@@ -87,8 +84,6 @@ class HomeNav extends Component {
 						options={languages}
 						header="Search Language"
 					/>
-				</Grid.Column>
-				<Grid.Column width="2" verticalAlign="middle">
 					<HomeNavDropdown
 						icon="dropdown"
 						defaultValue={rating}

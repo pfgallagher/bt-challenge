@@ -27,15 +27,19 @@ class SearchResults extends Component {
 						}
 					/>
 				)}
-				<Visibility continuous onBottomVisible={() => infiniteScroll()}>
-					<Card.Group centered>
-						{results.map(el => (
-							<Card className="cardColorOverride" key={el.id} link>
-								<Image src={el.images.fixed_height.url} />
-							</Card>
-						))}
-					</Card.Group>
-				</Visibility>
+				{results && results.length ? (
+					<Visibility continuous onBottomVisible={() => infiniteScroll()}>
+						<Card.Group centered>
+							{results.map(el => (
+								<Card className="cardColorOverride" key={el.id} link>
+									<Image src={el.images.fixed_height.url} />
+								</Card>
+							))}
+						</Card.Group>
+					</Visibility>
+				) : (
+					""
+				)}
 			</>
 		);
 	}

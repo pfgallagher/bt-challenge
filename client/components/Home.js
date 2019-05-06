@@ -9,7 +9,7 @@ class Home extends Component {
 		return (
 			<>
 				<Segment className="bgColorOverride">
-					<Grid>
+					<Grid stackable>
 						<HomeHeader />
 						<HomeNav />
 					</Grid>

@@ -10,8 +10,7 @@ class HomeHeader extends Component {
 		const { clearResults } = this.props;
 		return (
 			<Grid.Row>
-				<Grid.Column width="4" />
-				<Grid.Column width="8" verticalAlign="middle" textAlign="center">
+				<Grid.Column width="16" verticalAlign="middle" textAlign="center">
 					<Link
 						to=""
 						onClick={event => {
@@ -25,7 +24,6 @@ class HomeHeader extends Component {
 						</Header>
 					</Link>
 				</Grid.Column>
-				<Grid.Column width="4" />
 			</Grid.Row>
 		);
 	}
