@@ -45,7 +45,7 @@ export const toggleLoadingOff = () => ({
 
 // Thunks
 
-const buildSearchString = (
+export const buildSearchString = (
 	searchType,
 	searchQuery,
 	notRandom,
