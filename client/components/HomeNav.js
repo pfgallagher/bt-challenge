@@ -1,34 +1,27 @@
 import React, { Component } from "react";
 import { Button, Grid, Input } from "semantic-ui-react";
-import { languages, ratings } from "./settingsData";
 import { connect } from "react-redux";
+
+import { languages, ratings } from "./settingsData";
 import {
+	initialSearch,
 	setLanguage,
 	setRating,
-	initialSearch,
-	updateSearchType,
 	updateSearchQuery,
+	updateSearchType,
 } from "./../store";
 import HomeNavDropdown from "./HomeNavDropdown";
+
 class HomeNav extends Component {
-	state = {
-		input: "",
-	};
-
-	clearInput = () => {
-		this.setState({ input: "" });
-	};
-
 	render() {
 		const {
+			initialSearch,
 			language,
 			rating,
+			searchQuery,
 			setLanguage,
 			setRating,
-			searchQuery,
-			updateSearchType,
 			updateSearchQuery,
-			initialSearch,
 		} = this.props;
 		return (
 			<Grid.Row centered>
