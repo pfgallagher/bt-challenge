@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import { setLanguage, setRating } from "./../store";
 import HomeNavDropdown from "./HomeNavDropdown";
 class HomeNav extends Component {
+	state = {
+		input: "",
+	};
 	render() {
 		const { language, rating, setLanguage, setRating } = this.props;
 		return (
@@ -12,19 +15,44 @@ class HomeNav extends Component {
 				<Grid.Column width="1" />
 				<Grid.Column textAlign="center" width="2" verticalAlign="middle">
 					<Button.Group>
-						<Button size="huge" className="icon">
+						<Button
+							onClick={() => {
+								console.log("trending");
+							}}
+							size="huge"
+							className="icon"
+						>
 							Trending
 						</Button>
-						<Button size="huge" className="icon">
+						<Button
+							onClick={() => {
+								console.log("random");
+							}}
+							size="huge"
+							className="icon"
+						>
 							Random
 						</Button>
 					</Button.Group>
 				</Grid.Column>
 				<Grid.Column width="1" />
 				<Grid.Column width="8" textAlign="center">
-					<Input size="massive" placeholder="Search Giphy" action>
+					<Input
+						size="massive"
+						placeholder="Search Giphy"
+						action
+						onChange={event => {
+							this.setState({ input: event.target.value });
+						}}
+					>
 						<input />
-						<Button size="massive" type="submit">
+						<Button
+							size="massive"
+							type="submit"
+							onClick={() => {
+								console.log(this.state.input);
+							}}
+						>
 							Search
 						</Button>
 					</Input>

@@ -5,7 +5,7 @@ class HomeHeader extends Component {
 		return (
 			<Grid.Row>
 				<Grid.Column width="4" />
-				<Grid.Column width="8" textAlign="center">
+				<Grid.Column width="8" verticalAlign="middle" textAlign="center">
 					<Header inverted size="huge">
 						<Image src="/giphylogo.png" size="mini" verticalAlign="middle" />
 						<Header.Content>UI Developer Challenge</Header.Content>

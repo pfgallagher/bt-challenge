@@ -1,13 +1,20 @@
 const dummyData = require("./../components/settingsData/dummyData.json");
 
 // Action Types
-const INFINITE_SCROLL = "INFINITE_SCROLL";
+const GET_RESULTS = "GET_RESULTS";
+const CLEAR_RESULTS = "CLEAR_RESULTS";
 
 // Action Creators
-export const infiniteScroll = additionalResults => ({
-	type: INFINITE_SCROLL,
+export const getResults = additionalResults => ({
+	type: GET_RESULTS,
 	additionalResults,
 });
+
+export const clearResults = () => ({
+	type: CLEAR_RESULTS,
+});
+
+// Thunks
 
 // Reducer
 const initialState = {
@@ -15,10 +22,11 @@ const initialState = {
 };
 
 const dispatchers = {
-	[INFINITE_SCROLL]: (state, action) => ({
+	[GET_RESULTS]: (state, action) => ({
 		...state,
 		results: [...state.results, ...action.additionalResults],
 	}),
+	[CLEAR_RESULTS]: state => ({ ...state, results: [] }),
 };
 
 export default (state = initialState, action) => {
