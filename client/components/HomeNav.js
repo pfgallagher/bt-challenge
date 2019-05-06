@@ -54,6 +54,9 @@ class HomeNav extends Component {
 						onChange={event => {
 							updateSearchQuery(event.target.value);
 						}}
+						onKeyDown={event => {
+							if (event.key === "Enter") initialSearch("search", searchQuery);
+						}}
 					>
 						<input value={searchQuery} />
 						<Button
