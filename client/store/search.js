@@ -1,11 +1,14 @@
 const dummyData = require("./../components/settingsData/dummyData.json");
 import axios from "axios";
+
 // Action Types
 const ADD_RESULTS = "ADD_RESULTS";
 const CLEAR_RESULTS = "CLEAR_RESULTS";
 const UPDATE_SEARCH_TYPE = "UPDATE_SEARCH_TYPE";
 const UPDATE_OFFSET = "UPDATE_OFFSET";
 const UPDATE_SEARCH_QUERY = "UPDATE_SEARCH_QUERY";
+const TOGGLE_LOADING_ON = "TOGGLE_LOADING_ON";
+const TOGGLE_LOADING_OFF = "TOGGLE_LOADING_OFF";
 
 // Action Creators
 export const addResults = additionalResults => ({
@@ -32,6 +35,13 @@ export const updateSearchQuery = searchQuery => ({
 	searchQuery,
 });
 
+export const toggleLoadingOn = () => ({
+	type: TOGGLE_LOADING_ON,
+});
+export const toggleLoadingOff = () => ({
+	type: TOGGLE_LOADING_OFF,
+});
+
 // Thunks
 
 const buildSearchString = (
@@ -51,6 +61,7 @@ const buildSearchString = (
 
 export const initialSearch = (type, query) => async (dispatch, getState) => {
 	try {
+		dispatch(toggleLoadingOn());
 		dispatch(clearResults());
 		dispatch(updateSearchType(type));
 		if (query) dispatch(updateSearchQuery(query));
@@ -72,9 +83,8 @@ export const initialSearch = (type, query) => async (dispatch, getState) => {
 		const { data: gifs } = await axios.get(searchString);
 		const results = Array.isArray(gifs.data) ? gifs.data : [gifs.data];
 		dispatch(addResults(results));
-		// Axios request goes here
-		// Add result dispatch goes here
-		if (notRandom) dispatch(updateOffset(48));
+		if (notRandom) dispatch(updateOffset(49));
+		dispatch(toggleLoadingOff());
 	} catch (error) {
 		console.log(error);
 	}
@@ -82,6 +92,7 @@ export const initialSearch = (type, query) => async (dispatch, getState) => {
 
 export const infiniteScroll = () => async (dispatch, getState) => {
 	try {
+		dispatch(toggleLoadingOn());
 		const { search, settings } = getState();
 		const { searchType, offset, searchQuery } = search;
 		const { rating, language } = settings;
@@ -99,9 +110,8 @@ export const infiniteScroll = () => async (dispatch, getState) => {
 			console.log(searchString);
 			const { data: gifs } = await axios.get(searchString);
 			dispatch(addResults(gifs.data));
-			// Axios request goes here
-			// Add result dispatch goes here
-			dispatch(updateOffset(48));
+			dispatch(updateOffset(49));
+			dispatch(toggleLoadingOff());
 		}
 	} catch (error) {
 		console.log(error);
@@ -114,6 +124,7 @@ const initialState = {
 	searchType: "",
 	offset: 0,
 	searchQuery: "",
+	loading: false,
 };
 
 const dispatchers = {
@@ -121,7 +132,10 @@ const dispatchers = {
 		...state,
 		results: [...state.results, ...action.additionalResults],
 	}),
-	[CLEAR_RESULTS]: (state, action) => initialState,
+	[CLEAR_RESULTS]: (state, action) => ({
+		...initialState,
+		loading: state.loading,
+	}),
 	[UPDATE_SEARCH_TYPE]: (state, action) => ({
 		...state,
 		searchType: action.searchType,
@@ -133,6 +147,14 @@ const dispatchers = {
 	[UPDATE_SEARCH_QUERY]: (state, action) => ({
 		...state,
 		searchQuery: action.searchQuery,
+	}),
+	[TOGGLE_LOADING_ON]: (state, action) => ({
+		...state,
+		loading: true,
+	}),
+	[TOGGLE_LOADING_OFF]: (state, action) => ({
+		...state,
+		loading: false,
 	}),
 };
 
