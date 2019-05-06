@@ -1,15 +1,15 @@
 const dummyData = require("./../components/settingsData/dummyData.json");
 import axios from "axios";
 // Action Types
-const GET_RESULTS = "GET_RESULTS";
+const ADD_RESULTS = "ADD_RESULTS";
 const CLEAR_RESULTS = "CLEAR_RESULTS";
 const UPDATE_SEARCH_TYPE = "UPDATE_SEARCH_TYPE";
 const UPDATE_OFFSET = "UPDATE_OFFSET";
 const UPDATE_SEARCH_QUERY = "UPDATE_SEARCH_QUERY";
 
 // Action Creators
-export const getResults = additionalResults => ({
-	type: GET_RESULTS,
+export const addResults = additionalResults => ({
+	type: ADD_RESULTS,
 	additionalResults,
 });
 
@@ -112,7 +112,7 @@ const initialState = {
 };
 
 const dispatchers = {
-	[GET_RESULTS]: (state, action) => ({
+	[ADD_RESULTS]: (state, action) => ({
 		...state,
 		results: [...state.results, ...action.additionalResults],
 	}),
