@@ -2,14 +2,26 @@ import React, { Component } from "react";
 import { Button, Grid, Input } from "semantic-ui-react";
 import { languages, ratings } from "./settingsData";
 import { connect } from "react-redux";
-import { setLanguage, setRating } from "./../store";
+import {
+	setLanguage,
+	setRating,
+	initialSearch,
+	updateSearchType,
+} from "./../store";
 import HomeNavDropdown from "./HomeNavDropdown";
 class HomeNav extends Component {
 	state = {
 		input: "",
 	};
 	render() {
-		const { language, rating, setLanguage, setRating } = this.props;
+		const {
+			language,
+			rating,
+			setLanguage,
+			setRating,
+			updateSearchType,
+			initialSearch,
+		} = this.props;
 		return (
 			<Grid.Row>
 				<Grid.Column width="1" />
@@ -17,7 +29,7 @@ class HomeNav extends Component {
 					<Button.Group>
 						<Button
 							onClick={() => {
-								console.log("trending");
+								initialSearch("trending");
 							}}
 							size="huge"
 							className="icon"
@@ -26,7 +38,7 @@ class HomeNav extends Component {
 						</Button>
 						<Button
 							onClick={() => {
-								console.log("random");
+								initialSearch("random");
 							}}
 							size="huge"
 							className="icon"
@@ -50,7 +62,7 @@ class HomeNav extends Component {
 							size="massive"
 							type="submit"
 							onClick={() => {
-								console.log(this.state.input);
+								initialSearch("search", this.state.input);
 							}}
 						>
 							Search
@@ -95,6 +107,12 @@ const mapDispatchToProps = dispatch => ({
 	},
 	setRating: rating => {
 		dispatch(setRating(rating));
+	},
+	updateSearchType: searchType => {
+		dispatch(updateSearchType(searchType));
+	},
+	initialSearch: searchType => {
+		dispatch(initialSearch(searchType));
 	},
 });
 
