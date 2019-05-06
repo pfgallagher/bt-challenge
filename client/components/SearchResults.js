@@ -23,10 +23,7 @@ class SearchResults extends Component {
 					}
 					style={{ position: "fixed", top: "95%", left: "95%" }}
 				/>
-				<Visibility
-					continuous
-					onBottomVisible={() => infiniteScroll(dummyData.data)}
-				>
+				<Visibility continuous onBottomVisible={() => infiniteScroll()}>
 					<Card.Group centered>
 						{results.map(el => (
 							<Card className="cardColorOverride" key={el.id} link>
@@ -45,8 +42,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	infiniteScroll: additionalResults => {
-		dispatch(infiniteScroll(additionalResults));
+	infiniteScroll: () => {
+		dispatch(infiniteScroll());
 	},
 });
 
