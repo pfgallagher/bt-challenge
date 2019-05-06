@@ -1,35 +1,33 @@
 import React, { Component } from "react";
 import { Grid, Header, Image } from "semantic-ui-react";
 import { connect } from "react-redux";
+
 import { clearResults } from "./../store";
-import { Link } from "react-router-dom";
-import HomeNav from "./HomeNav";
+
 class HomeHeader extends Component {
 	render() {
-		console.log(HomeNav);
 		const { clearResults } = this.props;
 		return (
 			<Grid.Row>
 				<Grid.Column width="16" verticalAlign="middle" textAlign="center">
-					<Link
-						to=""
-						onClick={event => {
-							event.preventDefault();
+					<Header
+						className="headerCursor"
+						onClick={() => {
 							clearResults();
 						}}
+						inverted
+						size="huge"
 					>
-						<Header inverted size="huge">
-							<Image src="/giphylogo.png" size="mini" verticalAlign="middle" />
-							<Header.Content>UI Developer Challenge</Header.Content>
-						</Header>
-					</Link>
+						<Image src="/giphylogo.png" size="mini" verticalAlign="middle" />
+						<Header.Content>UI Developer Challenge</Header.Content>
+					</Header>
 				</Grid.Column>
 			</Grid.Row>
 		);
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
 	clearResults: () => {
 		dispatch(clearResults());
 	},

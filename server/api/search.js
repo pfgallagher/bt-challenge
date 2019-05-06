@@ -9,13 +9,11 @@ router.use(
 	proxy(filter, {
 		target: "https://api.giphy.com/v1/gifs/",
 		changeOrigin: true,
-		pathRewrite: (path, req) => {
-			console.log(path);
-			return path
+		pathRewrite: path =>
+			path
 				.split("/api/search/")
 				.join("")
-				.replace("APIKEY", giphyAPIKey);
-		},
+				.replace("APIKEY", giphyAPIKey),
 		logLevel: "debug",
 	}),
 );

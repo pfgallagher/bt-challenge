@@ -33,3 +33,12 @@ body,
 .scrollToTopColorOverride {
 	color: #394b60 !important;
 }
+
+.headerCursor {
+	cursor: pointer;
+}
+
+.transparentModal {
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
