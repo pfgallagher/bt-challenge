@@ -24,6 +24,12 @@ form div {
 	background-color: #004e85 !important;
 }
 
-body {
+body,
+.cardColorOverride {
 	background-color: #bfcbd9 !important;
+	box-shadow: none !important;
+}
+
+.scrollToTopColorOverride {
+	color: #394b60 !important;
 }
