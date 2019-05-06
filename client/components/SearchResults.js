@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Card, Container, Image, Modal, Visibility } from "semantic-ui-react";
+import {
+	Card,
+	Container,
+	Divider,
+	Image,
+	Modal,
+	Visibility,
+} from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import { infiniteScroll } from "./../store";
@@ -62,6 +69,7 @@ class SearchResults extends Component {
 								</Card>
 							))}
 						</Card.Group>
+						<Divider />
 					</Visibility>
 				) : (
 					""
