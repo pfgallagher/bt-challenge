@@ -34,6 +34,21 @@ export const updateSearchQuery = searchQuery => ({
 
 // Thunks
 
+const buildSearchString = (
+	searchType,
+	searchQuery,
+	notRandom,
+	limit,
+	offset,
+	rating,
+	language,
+) =>
+	`/api/search/${searchType}?api_key=APIKEY${
+		searchQuery ? `&q=${searchQuery}` : ""
+	}${notRandom ? `$limit=${limit}&offset=${offset}` : ""}&rating=${rating}${
+		searchType === "search" ? `&lang=${language}` : ""
+	}`;
+
 export const initialSearch = (type, query) => async (dispatch, getState) => {
 	try {
 		dispatch(clearResults());
@@ -44,25 +59,49 @@ export const initialSearch = (type, query) => async (dispatch, getState) => {
 		const { searchType, searchQuery } = search;
 		const { rating, language } = settings;
 		const notRandom = searchType === "search" || searchType === "trending";
-
-		const searchString = `/api/search/${searchType}?api_key=APIKEY${
-			searchQuery ? `&q=${searchQuery}` : ""
-		}${notRandom ? "&limit=24&offset=0" : ""}&rating=${rating}${
-			searchType === "search" ? `&lang=${language}` : ""
-		}`;
+		const searchString = buildSearchString(
+			searchType,
+			searchQuery,
+			notRandom,
+			48,
+			0,
+			rating,
+			language,
+		);
 		console.log(searchString);
 		// Axios request goes here
 		// Add result dispatch goes here
-		if (notRandom) dispatch(updateOffset(24));
+		if (notRandom) dispatch(updateOffset(48));
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const trendingSearch = () => {};
-export const randomSearch = () => {};
-
-export const regularSearch = () => {};
+export const infiniteScroll = () => async (dispatch, getState) => {
+	try {
+		const { search, settings } = getState();
+		const { searchType, offset, searchQuery } = search;
+		const { rating, language } = settings;
+		const notRandom = searchType === "search" || searchType === "trending";
+		if (notRandom) {
+			const searchString = buildSearchString(
+				searchType,
+				searchQuery,
+				notRandom,
+				48,
+				offset,
+				rating,
+				language,
+			);
+			console.log(searchString);
+			// Axios request goes here
+			// Add result dispatch goes here
+			dispatch(updateOffset(48));
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 // Reducer
 const initialState = {

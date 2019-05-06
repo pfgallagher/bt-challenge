@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Card, Icon, Image, Visibility } from "semantic-ui-react";
 import { connect } from "react-redux";
 const dummyData = require("./../components/settingsData/dummyData.json");
-import { getResults } from "./../store";
+import { infiniteScroll } from "./../store";
 
 class SearchResults extends Component {
 	render() {
-		const { getResults, results } = this.props;
+		const { infiniteScroll, results } = this.props;
 		return (
 			<>
 				<Icon
@@ -23,10 +23,7 @@ class SearchResults extends Component {
 					}
 					style={{ position: "fixed", top: "95%", left: "95%" }}
 				/>
-				<Visibility
-					continuous
-					onBottomVisible={() => getResults(dummyData.data)}
-				>
+				<Visibility continuous onBottomVisible={() => infiniteScroll()}>
 					<Card.Group centered>
 						{results.map(el => (
 							<Card className="cardColorOverride" key={el.id} link>
@@ -45,8 +42,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	getResults: additionalResults => {
-		dispatch(getResults(additionalResults));
+	infiniteScroll: () => {
+		dispatch(infiniteScroll());
 	},
 });
 
