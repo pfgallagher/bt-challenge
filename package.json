@@ -35,7 +35,7 @@
 	"author": "Patrick Gallagher",
 	"license": "MIT",
 	"dependencies": {
-		"axios": "^0.18.0",
+		"axios": "^0.21.1",
 		"compression": "^1.7.3",
 		"express": "^4.16.4",
 		"history": "^4.9.0",
